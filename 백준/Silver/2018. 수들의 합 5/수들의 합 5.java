@@ -1,28 +1,37 @@
-import java.io.*;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
+        Scanner input = new Scanner(System.in);
+        int N = input.nextInt();
+        int[] arr = new int[N];
+        
+        for(int i=1; i<N+1; i++){
+            arr[i-1] = i;
+        }
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        int startPointer = 1;
-        int endPointer = 1;
-        int sum =1;
-        int answer =0;
+        int sum=1;
+        int count=1;
+        int start=1;
+        int end =1;
 
-        while(endPointer<=n){
-            if(sum == n){
-                answer++;
-                endPointer++;
-                sum+=endPointer;
-            } else if(sum>n){
-                sum -=startPointer;
-                startPointer++;
-            } else{ //sum<n일 경우
-                endPointer++;
-                sum+=endPointer;
+        while(end!=N){
+            if(sum<N){
+                end++;
+                sum+=end;
+            }
+            else if(sum>N){
+                sum-=start;
+                start++;
+            }
+            else{
+                end++;
+                sum+=end;
+                count++;
             }
         }
-        System.out.println(answer);
+
+        System.out.println(count);
+
     }
 }
