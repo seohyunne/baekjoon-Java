@@ -17,32 +17,28 @@ public class Main {
     boolean result = true;
 
     StringBuffer bf = new StringBuffer();
-    
-    for(int i=0; i<N; i++){
+
+    for (int i=0; i<N; i++){
         int su = arr[i];
-        if(su>=num){
-            while(su>=num){
-                stack.push(num++);
-                bf.append("+\n");
-            }
+
+        // 1. 필요한 만큼 오름차순 push
+        while (num<=su){
+            stack.push(num++);
+            bf.append("+\n");
+        }
+
+        // 2. 스택의 top이 현재 수열 값과 같은지 확인
+        if(stack.peek()==su){
             stack.pop();
             bf.append("-\n");
         }
         else{
-            int n = stack.pop();
-            // 현재 수열에 있는 값이 stack의 마지막 값보다 크다 -> 절대 수열 완성이 안됨
-            if(n>su){
-                System.out.println("NO");
-                result=false;
-                break;
-            }else{
-                bf.append("-\n");
-            }
+            // 같지 않으면 오름차순 규칙상 만들 수 없는 수열
+            System.out.println("NO");
+            return; // 프로그램 종료
         }
     }
-    if(result==true){
         System.out.println(bf.toString());
-    }
 
     }
 }
